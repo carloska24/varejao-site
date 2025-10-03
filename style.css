@@ -28,7 +28,7 @@ body {
     background-color: var(--white);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border-radius: 20px;
-    overflow: hidden;
+    overflow-x: hidden; /* Permite rolagem vertical, mas esconde a horizontal */
     position: relative;
     padding-bottom: 70px; /* Espaço para a nav inferior */
 }
@@ -39,29 +39,43 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background-color: var(--white);
+    background-color: var(--primary-green);
+    position: relative;
 }
 
-.main-header .logo {
+.logo {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    max-width: 180px; /* Aumenta a largura máxima para o logo */
+    flex-grow: 1; /* Permite que ele ocupe o espaço central */
+}
+
+.logo .logo-icon {
+    height: 60px; /* Aumenta ainda mais a altura do logo */
+    width: 100%; /* Faz o SVG ocupar a largura do container .logo */
+    object-fit: contain;
+}
+
+.logo span {
     font-weight: 600;
     font-size: 0.9em;
-}
-
-.main-header .logo-icon {
-    width: 20px;
-    margin-right: 5px;
+    white-space: nowrap; /* Impede que o nome quebre a linha */
 }
 
 .main-header i {
     font-size: 1.2em;
-    color: var(--dark-text);
+    color: var(--white);
 }
-.main-header .fa-bars {
+.header-left .fa-bars {
     cursor: pointer;
 }
 
+.header-left, .header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
 .header-icons {
     display: flex;
@@ -193,6 +207,29 @@ body {
     font-size: 1em;
     font-weight: 600;
     margin-bottom: 5px;
+}
+
+.product-card .product-description {
+    font-size: 0.8em;
+    color: var(--light-text);
+    margin-bottom: 10px;
+    min-height: 2.4em; /* Garante altura mínima para 2 linhas */
+}
+
+.type-selector {
+    margin-bottom: 10px;
+    font-size: 0.85em;
+}
+
+.type-selector label {
+    margin-right: 5px;
+    font-weight: 500;
+}
+
+.product-type-select {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 2px 4px;
 }
 
 .product-card .price {

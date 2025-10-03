@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const plusButton = card.querySelector('.quantity-btn:last-child');
         const quantitySpan = card.querySelector('.quantity');
         const addToCartButton = card.querySelector('.add-to-cart-btn');
+        const typeSelect = card.querySelector('.product-type-select');
 
         let quantity = 1;
 
@@ -29,7 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Evento de clique no botão de adicionar ao carrinho
         addToCartButton.addEventListener('click', () => {
-            const productName = card.querySelector('h3').textContent;
+            let productName = card.querySelector('h3').textContent;
+            
+            // Se houver uma caixa de seleção de tipo, adiciona o tipo ao nome do produto
+            if (typeSelect) {
+                const selectedType = typeSelect.options[typeSelect.selectedIndex].text;
+                productName = `${productName} (${selectedType})`;
+            }
+
             alert(`${quantity} unidade(s) de ${productName} adicionada(s) ao carrinho!`);
             // Aqui você pode adicionar uma lógica mais complexa no futuro
         });
