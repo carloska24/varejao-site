@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varejão Bom Preço</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="mobile-container">
+        <!-- Overlay para escurecer o fundo quando o menu estiver aberto -->
+        <div class="overlay"></div>
+
+        <!-- Menu Lateral (Sidenav) -->
+        <nav class="sidenav">
+            <div class="sidenav-header">
+                <h3>Menu</h3>
+                <i class="fa-solid fa-times" id="close-menu-btn"></i>
+            </div>
+            <a href="#" id="menu-link-inicio" class="sidenav-link"><i class="fa-solid fa-home"></i> Início</a>
+            <a href="#" id="menu-link-ofertas" class="sidenav-link"><i class="fa-solid fa-tag"></i> Ofertas</a>
+            <a href="#" id="menu-link-conta" class="sidenav-link"><i class="fa-solid fa-user"></i> Minha Conta</a>
+        </nav>
+        <header class="main-header">
+            <i class="fa-solid fa-bars" id="open-menu-btn"></i>
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/3724/3724721.png" alt="logo" class="logo-icon"> <span>VAREJÃO BOM PREÇO</span>
+            </div>
+            <div class="header-icons">
+                <i class="fa-solid fa-search"></i>
+                <div class="cart-icon">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span class="cart-notification">3</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero-section" id="ofertas-section">
+                <div class="hero-content">
+                    <h2>OFERTAS DA SEMANA!</h2>
+                    <a href="#" class="btn-ofertas">VER OFERTAS</a>
+                </div>
+            </section>
+
+            <section class="categories">
+                <div class="category-item active-category" data-filter="all">
+                    <div class="icon-bg"><i class="fa-solid fa-store"></i></div>
+                    <span>Todos</span>
+                </div>
+                <div class="category-item" data-filter="frutas">
+                    <div class="icon-bg"><i class="fa-solid fa-apple-whole"></i></div>
+                    <span>Frutas</span>
+                </div>
+                <div class="category-item" data-filter="verduras">
+                    <div class="icon-bg"><i class="fa-solid fa-leaf"></i></div>
+                    <span>Verduras</span>
+                </div>
+                <div class="category-item" data-filter="legumes">
+                    <div class="icon-bg"><i class="fa-solid fa-carrot"></i></div>
+                    <span>Legumes</span>
+                </div>
+                <div class="category-item" data-filter="organicos">
+                     <div class="icon-bg"><i class="fa-solid fa-seedling"></i></div>
+                    <span>Orgânicos</span>
+                </div>
+                <div class="category-item" data-filter="temperos">
+                    <div class="icon-bg"><i class="fa-solid fa-pepper-hot"></i></div>
+                    <span>Temperos</span>
+                </div>
+            </section>
+
+            <section class="product-grid">
+                <div class="product-card" data-category="frutas">
+                    <img src="https://static.vecteezy.com/system/resources/previews/022/825/578/original/strawberry-fruit-food-red-fresh-png.png" alt="Morango">
+                    <h3>Morango</h3>
+                    <p class="price">
+                        <span class="current-price">R$ 7,99</span>
+                        <span class="old-price">R$ 9,99 / bandeja</span>
+                    </p>
+                    <div class="card-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="verduras">
+                    <img src="https://pngimg.com/uploads/lettuce/lettuce_PNG10051.png" alt="Alface Americana">
+                    <h3>Alface Americana</h3>
+                    <p class="price">
+                        <span class="current-price">R$ 4,50</span>
+                        <span class="old-price">R$ 4,50 / unidade</span>
+                    </p>
+                     <div class="card-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="frutas">
+                    <img src="https://png.pngtree.com/png-clipart/20230113/ourmid/pngtree-bunch-of-bananas-on-a-transparent-background-png-image_6561385.png" alt="Banana Prata">
+                    <h3>Banana Prata</h3>
+                    <p class="price">
+                        <span class="current-price">R$ 5,99</span>
+                        <span class="old-price">R$ 6,99 / kg</span>
+                    </p>
+                     <div class="card-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="legumes">
+                    <img src="https://www.pngall.com/wp-content/uploads/2016/04/Tomato-PNG-Clipart.png" alt="Tomate Italiano">
+                    <h3>Tomate Italiano</h3>
+                    <p class="price">
+                        <span class="current-price">R$ 8,50</span>
+                        <span class="old-price">R$ 9,50 / kg</span>
+                    </p>
+                     <div class="card-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="legumes">
+                    <img src="https://purepng.com/public/uploads/large/purepng.com-carrotscarrotvegetablesfreshfoodhealthydietcarrots-1701527231623u9k2h.png" alt="Cenoura">
+                    <h3>Cenoura</h3>
+                    <p class="price">
+                        <span class="current-price">R$ 3,99</span>
+                        <span class="old-price">R$ 4,50 / kg</span>
+                    </p>
+                     <div class="card-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="verduras">
+                    <img src="https://static.vecteezy.com/system/resources/previews/025/064/821/original/broccoli-with-ai-generated-free-png.png" alt="Brócolis">
+                    <h3>Brócolis Ninja</h3>
+                    <p class="price">
+                        <span class="current-price">R$ 6,50</span>
+                        <span class="old-price">R$ 7,00 / unidade</span>
+                    </p>
+                     <div class="card-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="temperos">
+                    <img src="https://png.pngtree.com/png-clipart/20230504/ourmid/pngtree-basil-leaves-png-image_7088193.png" alt="Manjericão">
+                    <h3>Manjericão Fresco</h3>
+                    <p class="price">
+                        <span class="current-price">R$ 3,50</span>
+                        <span class="old-price">R$ 4,00 / maço</span>
+                    </p>
+                     <div class="card-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="organicos">
+                    <img src="https://www.pngkey.com/png/full/230-2305756_ma-orgnica-png-ma-fuji-organica.png" alt="Maçã Orgânica">
+                    <h3>Maçã Fuji Orgânica</h3>
+                    <p class="price">
+                        <span class="current-price">R$ 12,99</span>
+                        <span class="old-price">R$ 14,99 / kg</span>
+                    </p>
+                     <div class="card-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+                </section>
+        </main>
+
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-home"></i>
+                <span>Início</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-th-large"></i>
+                <span>Categorias</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-star"></i>
+                <span>Ofertas</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-utensils"></i>
+                <span>Receitas</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-user"></i>
+                <span>Perfil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
