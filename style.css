@@ -2396,6 +2396,19 @@ body {
     font-weight: bold !important;
     font-size: 0.95em !important;
     animation: pulse 2s infinite !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.deal-timer.urgent {
+    background: #e74c3c !important;
+    animation: urgentPulse 1s infinite !important;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.5) !important;
+}
+
+.deal-timer.warning {
+    background: #f39c12 !important;
+    animation: warningPulse 1.5s infinite !important;
 }
 
 .stock-info {
@@ -2451,4 +2464,23 @@ body {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
+}
+
+@keyframes urgentPulse {
+    0% { transform: scale(1); box-shadow: 0 0 20px rgba(231, 76, 60, 0.5); }
+    25% { transform: scale(1.08); box-shadow: 0 0 30px rgba(231, 76, 60, 0.8); }
+    50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(231, 76, 60, 1); }
+    75% { transform: scale(1.08); box-shadow: 0 0 30px rgba(231, 76, 60, 0.8); }
+    100% { transform: scale(1); box-shadow: 0 0 20px rgba(231, 76, 60, 0.5); }
+}
+
+@keyframes warningPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
