@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Varejão Bom Preço</title>
+    <!-- Preload da imagem do banner para carregamento mais rápido -->
+    <link rel="preload" href="img/banner-varejao.png" as="image" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
@@ -32,7 +34,7 @@
                 <img src="img/logo.svg" alt="" class="logo-icon">
             </div>
             <div class="header-icons">
-                <i class="fa-solid fa-search"></i>
+                <i class="fa-solid fa-search" id="search-btn"></i>
                 <div class="cart-icon">
                     <i class="fa-solid fa-shopping-cart"></i>
                     <span class="cart-notification">3</span>
@@ -43,225 +45,199 @@
         <main>
             <section class="hero-section" id="ofertas-section">
                 <div class="hero-content">
-                    <h2>OFERTAS DA SEMANA!</h2>
-                    <a href="#" class="btn-ofertas">VER OFERTAS</a>
+                    <!-- Conteúdo removido para focar apenas na imagem do banner -->
                 </div>
             </section>
 
             <section class="categories">
-                <div class="category-item active-category" data-filter="all">
-                    <div class="icon-bg"><i class="fa-solid fa-store"></i></div>
-                    <span>Todos</span>
+                <div class="categories-header">
+                    <h3>Explore por Categoria</h3>
+                    <div class="search-filter">
+                        <input type="text" id="product-search" placeholder="Buscar produtos...">
+                        <i class="fa-solid fa-search"></i>
+                    </div>
                 </div>
-                <div class="category-item" data-filter="frutas">
-                    <div class="icon-bg"><i class="fa-solid fa-apple-whole"></i></div>
-                    <span>Frutas</span>
-                </div>
-                <div class="category-item" data-filter="verduras">
-                    <div class="icon-bg"><i class="fa-solid fa-leaf"></i></div>
-                    <span>Verduras</span>
-                </div>
-                <div class="category-item" data-filter="legumes">
-                    <div class="icon-bg"><i class="fa-solid fa-carrot"></i></div>
-                    <span>Legumes</span>
-                </div>
-                <div class="category-item" data-filter="organicos">
-                     <div class="icon-bg"><i class="fa-solid fa-seedling"></i></div>
-                    <span>Orgânicos</span>
-                </div>
-                <div class="category-item" data-filter="temperos">
-                    <div class="icon-bg"><i class="fa-solid fa-pepper-hot"></i></div>
-                    <span>Temperos</span>
+                <div class="categories-grid">
+                    <div class="category-item active-category" data-filter="all">
+                        <div class="icon-bg"><i class="fa-solid fa-store"></i></div>
+                        <span>Todos</span>
+                        <small class="category-count">10</small>
+                    </div>
+                    <div class="category-item" data-filter="frutas">
+                        <div class="icon-bg"><i class="fa-solid fa-apple-whole"></i></div>
+                        <span>Frutas</span>
+                        <small class="category-count">4</small>
+                    </div>
+                    <div class="category-item" data-filter="verduras">
+                        <div class="icon-bg"><i class="fa-solid fa-leaf"></i></div>
+                        <span>Verduras</span>
+                        <small class="category-count">2</small>
+                    </div>
+                    <div class="category-item" data-filter="legumes">
+                        <div class="icon-bg"><i class="fa-solid fa-carrot"></i></div>
+                        <span>Legumes</span>
+                        <small class="category-count">2</small>
+                    </div>
+                    <div class="category-item" data-filter="organicos">
+                         <div class="icon-bg"><i class="fa-solid fa-seedling"></i></div>
+                        <span>Orgânicos</span>
+                        <small class="category-count">1</small>
+                    </div>
+                    <div class="category-item" data-filter="temperos">
+                        <div class="icon-bg"><i class="fa-solid fa-pepper-hot"></i></div>
+                        <span>Temperos</span>
+                        <small class="category-count">1</small>
+                    </div>
                 </div>
             </section>
 
-            <section class="product-grid">
-                <div class="product-card" data-category="frutas">
-                    <img src="https://static.vecteezy.com/system/resources/previews/022/825/578/original/strawberry-fruit-food-red-fresh-png.png" alt="Morango">
-                    <h3>Morango</h3>
-                    <p class="price">
-                        <span class="current-price">R$ 7,99</span>
-                        <span class="old-price">R$ 9,99 / bandeja</span>
-                    </p>
-                    <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
+            <!-- SEÇÃO DE OFERTAS RELÂMPAGO -->
+            <section class="flash-deals" id="ofertas-especiais">
+                <div class="deals-header">
+                    <h2><i class="fa-solid fa-bolt"></i> OFERTAS RELÂMPAGO</h2>
+                    <div class="countdown-timer">
+                        <span>Termina em: </span>
+                        <div class="timer">
+                            <span id="hours">23</span>h
+                            <span id="minutes">59</span>m
+                            <span id="seconds">59</span>s
                         </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
                     </div>
                 </div>
-                <div class="product-card" data-category="frutas">
-                    <img src="https://png.pngtree.com/png-clipart/20230113/ourmid/pngtree-bunch-of-bananas-on-a-transparent-background-png-image_6561385.png" alt="Banana Prata">
-                    <h3>Banana</h3>
-                    <p class="product-description">Ótima para vitaminas ou consumo in natura.</p>
-                    <div class="type-selector">
-                        <label for="banana-type">Tipo:</label>
-                        <select name="banana-type" id="banana-type" class="product-type-select">
-                            <option value="Prata">Prata</option>
-                            <option value="Nanica">Nanica</option>
-                        </select>
+                <div class="flash-deals-grid">
+                    <!-- Produtos em oferta serão inseridos aqui via JS -->
+                </div>
+                <div class="deals-cta">
+                    <button class="btn-ver-todas-ofertas">Ver Todas as Ofertas <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </section>
+
+            <section class="product-grid"></section>
+
+            <!-- SEÇÃO DE RECEITAS -->
+            <section class="recipes-section" id="receitas-section" style="display: none;">
+                <div class="recipes-header">
+                    <h2><i class="fa-solid fa-utensils"></i> Receitas Selecionadas</h2>
+                    <p>Ingredientes frescos do nosso varejão!</p>
+                </div>
+                <div class="recipes-grid">
+                    <!-- Receitas serão inseridas aqui via JS -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO DE PERFIL -->
+            <section class="profile-section" id="perfil-section" style="display: none;">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user"></i>
                     </div>
-                    <p class="price">
-                        <span class="current-price">R$ 5,99</span>
-                        <span class="old-price">R$ 6,99 / kg</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
+                    <h2>Meu Perfil</h2>
+                </div>
+                
+                <div class="loyalty-program">
+                    <div class="loyalty-card">
+                        <h3><i class="fa-solid fa-star"></i> Programa Fidelidade</h3>
+                        <div class="points-info">
+                            <span class="points">1.250 pontos</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 62%"></div>
+                            </div>
+                            <span class="next-reward">250 pontos para próxima recompensa</span>
                         </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
                     </div>
                 </div>
-                <div class="product-card" data-category="frutas">
-                    <img src="https://i.postimg.cc/9Qf2Nyx3/maca-gala.png" alt="Maçã">
-                    <h3>Maçã</h3>
-                    <p class="product-description">Doce ou ácida, perfeita para qualquer hora.</p>
-                    <div class="type-selector">
-                        <label for="maca-type">Tipo:</label>
-                        <select name="maca-type" id="maca-type" class="product-type-select">
-                            <option value="Gala">Gala</option>
-                            <option value="Fuji">Fuji</option>
-                        </select>
-                    </div>
-                    <p class="price">
-                        <span class="current-price">R$ 8,99</span>
-                        <span class="old-price">R$ 10,50 / kg</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
-                    </div>
+
+                <div class="profile-menu">
+                    <a href="#" class="profile-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Histórico de Compras</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="profile-item">
+                        <i class="fa-solid fa-ticket"></i>
+                        <span>Meus Cupons</span>
+                        <span class="badge">3</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="profile-item">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Lista de Desejos</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="profile-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Endereços de Entrega</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="profile-item">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>Notificações</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
                 </div>
-                <div class="product-card" data-category="frutas">
-                    <img src="https://i.postimg.cc/W3y2jM0b/mamao.png" alt="Mamão">
-                    <h3>Mamão</h3>
-                    <p class="product-description">Ideal para o café da manhã ou sobremesas.</p>
-                    <div class="type-selector">
-                        <label for="mamao-type">Tipo:</label>
-                        <select name="mamao-type" id="mamao-type" class="product-type-select">
-                            <option value="Formosa">Formosa</option>
-                            <option value="Papaya">Papaya</option>
-                        </select>
-                    </div>
-                    <p class="price">
-                        <span class="current-price">R$ 7,50</span>
-                        <span class="old-price">R$ 8,90 / kg</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-card" data-category="verduras">
-                    <img src="https://pngimg.com/uploads/lettuce/lettuce_PNG10051.png" alt="Alface Americana">
-                    <h3>Alface Americana</h3>
-                    <p class="price">
-                        <span class="current-price">R$ 4,50</span>
-                        <span class="old-price">R$ 4,50 / unidade</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-card" data-category="legumes">
-                    <img src="https://www.pngall.com/wp-content/uploads/2016/04/Tomato-PNG-Clipart.png" alt="Tomate Italiano">
-                    <h3>Tomate Italiano</h3>
-                    <p class="price">
-                        <span class="current-price">R$ 8,50</span>
-                        <span class="old-price">R$ 9,50 / kg</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-card" data-category="legumes">
-                    <img src="https://purepng.com/public/uploads/large/purepng.com-carrotscarrotvegetablesfreshfoodhealthydietcarrots-1701527231623u9k2h.png" alt="Cenoura">
-                    <h3>Cenoura</h3>
-                    <p class="price">
-                        <span class="current-price">R$ 3,99</span>
-                        <span class="old-price">R$ 4,50 / kg</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-card" data-category="organicos">
-                    <img src="https://www.pngkey.com/png/full/230-2305756_ma-orgnica-png-ma-fuji-organica.png" alt="Maçã Fuji Orgânica">
-                    <h3>Maçã Fuji Orgânica</h3>
-                    <p class="price">
-                        <span class="current-price">R$ 12,99</span>
-                        <span class="old-price">R$ 14,99 / kg</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-card" data-category="verduras">
-                    <img src="https://static.vecteezy.com/system/resources/previews/025/064/821/original/broccoli-with-ai-generated-free-png.png" alt="Brócolis">
-                    <h3>Brócolis Ninja</h3>
-                    <p class="price">
-                        <span class="current-price">R$ 6,50</span>
-                        <span class="old-price">R$ 7,00 / unidade</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-card" data-category="temperos">
-                    <img src="https://png.pngtree.com/png-clipart/20230504/ourmid/pngtree-basil-leaves-png-image_7088193.png" alt="Manjericão">
-                    <h3>Manjericão Fresco</h3>
-                    <p class="price">
-                        <span class="current-price">R$ 3,50</span>
-                        <span class="old-price">R$ 4,00 / maço</span>
-                    </p>
-                     <div class="card-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa-solid fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                </section>
+            </section>
         </main>
+
+        <!-- Modal do Produto -->
+        <div class="product-modal" id="product-modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <button class="modal-close-btn" id="modal-close-btn">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+                
+                <div class="modal-product-image">
+                    <img id="modal-product-img" src="" alt="">
+                </div>
+                
+                <div class="modal-product-details">
+                    <h2 id="modal-product-name"></h2>
+                    <p id="modal-product-description"></p>
+                    
+                    <div class="modal-price">
+                        <span class="modal-current-price" id="modal-current-price"></span>
+                        <span class="modal-old-price" id="modal-old-price"></span>
+                    </div>
+                    
+                    <div class="modal-type-selector" id="modal-type-selector" style="display: none;">
+                        <label for="modal-product-type">Tipo:</label>
+                        <select id="modal-product-type"></select>
+                    </div>
+                    
+                    <div class="modal-quantity-controls">
+                        <label>Quantidade:</label>
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" id="modal-qty-minus">-</button>
+                            <span class="quantity" id="modal-quantity">1</span>
+                            <button class="quantity-btn plus" id="modal-qty-plus">+</button>
+                        </div>
+                    </div>
+                    
+                    <button class="modal-add-to-cart-btn" id="modal-add-to-cart">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Painel do Carrinho de Compras -->
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h3>Meu Carrinho</h3>
+                <i class="fa-solid fa-times" id="close-cart-btn"></i>
+            </div>
+            <div class="cart-items">
+                <!-- Itens do carrinho serão inseridos aqui via JS -->
+            </div>
+            <div class="cart-summary">
+                <div class="summary-total">
+                    <span>Total:</span>
+                    <span id="cart-total-price">R$ 0,00</span>
+                </div>
+                <button class="btn-checkout">Finalizar Compra</button>
+            </div>
+        </div>
 
         <nav class="bottom-nav">
             <a href="#" class="nav-item active">
@@ -280,7 +256,7 @@
                 <i class="fa-solid fa-utensils"></i>
                 <span>Receitas</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" id="profile-btn">
                 <i class="fa-solid fa-user"></i>
                 <span>Perfil</span>
             </a>
