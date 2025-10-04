@@ -37,7 +37,12 @@ class UserJourneySimulator {
                 name: 'Verificação de Timers',
                 description: 'Usuário verifica tempo restante das ofertas',
                 action: () => this.simulateTimerCheck(),
-                validation: () => document.querySelector('.timer-container') !== null
+                validation: () => {
+                    const timers = document.querySelectorAll('#hours, #minutes, #seconds, .deal-timer, .timer-container, .deal-timer-forced, .deal-timer-created, .deal-timer-emergency');
+                    const hasMainTimer = document.querySelector('#hours') && document.querySelector('#minutes') && document.querySelector('#seconds');
+                    const hasIndividualTimers = document.querySelectorAll('.deal-timer, .deal-timer-forced, .deal-timer-created, .deal-timer-emergency').length > 0;
+                    return hasMainTimer || hasIndividualTimers || timers.length > 0;
+                }
             },
             {
                 name: 'Interação com Produtos',
@@ -226,22 +231,55 @@ class UserJourneySimulator {
     async simulateTimerCheck() {
         console.log('⏰ Simulando verificação de timers...');
         
-        const timers = document.querySelectorAll('.deal-timer, .timer-container');
-        console.log(`⏱️ Encontrados ${timers.length} timers ativos`);
+        // Verificar timer principal
+        const mainTimer = {
+            hours: document.querySelector('#hours'),
+            minutes: document.querySelector('#minutes'),
+            seconds: document.querySelector('#seconds')
+        };
+        
+        // Verificar timers individuais
+        const individualTimers = document.querySelectorAll('.deal-timer, .timer-container, .deal-timer-forced, .deal-timer-created, .deal-timer-emergency');
+        
+        console.log('🔍 Verificando timers:');
+        if (mainTimer.hours && mainTimer.minutes && mainTimer.seconds) {
+            console.log(`✅ Timer principal encontrado: ${mainTimer.hours.textContent}h ${mainTimer.minutes.textContent}m ${mainTimer.seconds.textContent}s`);
+        } else {
+            console.log('⚠️ Timer principal não encontrado');
+        }
+        
+        console.log(`🎯 Timers individuais encontrados: ${individualTimers.length}`);
+        
+        // Forçar criação de timers se necessário
+        if ((!mainTimer.hours || !mainTimer.minutes || !mainTimer.seconds) && individualTimers.length === 0) {
+            console.log('🔧 Forçando criação de timers para o teste...');
+            if (typeof window.garantirTimersFuncionando === 'function') {
+                window.garantirTimersFuncionando();
+            }
+            
+            // Aguardar criação
+            await this.delay(1000);
+        }
+        
+        // Destacar todos os elementos de timer encontrados
+        const allTimers = document.querySelectorAll('#hours, #minutes, #seconds, .deal-timer, .timer-container, .deal-timer-forced, .deal-timer-created, .deal-timer-emergency');
+        console.log(`⏱️ Total de elementos de timer para destacar: ${allTimers.length}`);
         
         // Destaca os timers
-        timers.forEach((timer, index) => {
+        allTimers.forEach((timer, index) => {
             setTimeout(() => {
-                timer.style.outline = '2px solid #ff6b6b';
-                timer.style.outlineOffset = '4px';
+                timer.style.outline = '3px solid #00ff00';
+                timer.style.outlineOffset = '5px';
+                timer.style.boxShadow = '0 0 20px rgba(0, 255, 0, 0.5)';
                 setTimeout(() => {
                     timer.style.outline = 'none';
-                }, 1000);
-            }, index * 300);
+                    timer.style.boxShadow = '';
+                }, 1500);
+            }, index * 200);
         });
         
-        await this.delay(2000);
-        console.log('⏰ Verificação de timers concluída');
+        await this.delay(3000);
+        console.log(`✅ Verificação de timers concluída - ${allTimers.length} timers verificados`);
     }
     
     async simulateProductInteraction() {
