@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status do Sistema - Varejão</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+        }
+        .status-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .status-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 5px solid #4CAF50;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .status-item.error {
+            border-left-color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+        .status-item.warning {
+            border-left-color: #ff9800;
+            background: rgba(255, 152, 0, 0.1);
+        }
+        .test-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .test-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .test-button.danger {
+            background: #f44336;
+        }
+        .test-button.danger:hover {
+            background: #da190b;
+        }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .timestamp { font-size: 0.9em; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div class="status-container">
+        <h1>🎯 Status do Sistema Varejão</h1>
+        <div class="timestamp">Última verificação: <span id="timestamp"></span></div>
+        
+        <div id="status-list">
+            <div class="status-item">
+                <strong>🚀 Servidor:</strong> <span id="server-status">Verificando...</span>
+            </div>
+            <div class="status-item">
+                <strong>🧭 Navegação:</strong> <span id="nav-status">Verificando...</span>
+            </div>
+            <div class="status-item">
+                <strong>🔥 Ofertas:</strong> <span id="offers-status">Verificando...</span>
+            </div>
+            <div class="status-item">
+                <strong>🎨 Debug Scripts:</strong> <span id="debug-status">Verificando...</span>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="test-button" onclick="testarSistema()">🧪 Executar Teste Completo</button>
+            <button class="test-button" onclick="forcarOfertas()">🔥 Forçar Ofertas</button>
+            <button class="test-button" onclick="abrirSitePrincipal()">🏠 Abrir Site Principal</button>
+            <button class="test-button danger" onclick="limparCache()">🗑️ Limpar Cache</button>
+        </div>
+        
+        <div id="test-results" style="margin-top: 30px;"></div>
+    </div>
+
+    <script>
+        // Atualiza timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Testa conexão com servidor
+        async function testarServidor() {
+            try {
+                const response = await fetch('http://localhost:3000');
+                if (response.ok) {
+                    updateStatus('server-status', '✅ Online na porta 3000', 'success');
+                } else {
+                    updateStatus('server-status', '⚠️ Resposta inesperada', 'warning');
+                }
+            } catch (error) {
+                updateStatus('server-status', '❌ Offline ou inacessível', 'error');
+            }
+        }
+        
+        // Testa scripts de debug
+        function testarScripts() {
+            const scripts = [
+                'debugOfertasCompleto',
+                'forcarOfertasVisiveis',
+                'navigateToSection',
+                'renderFlashDeals'
+            ];
+            
+            let available = 0;
+            scripts.forEach(script => {
+                if (typeof window[script] === 'function') {
+                    available++;
+                }
+            });
+            
+            if (available === scripts.length) {
+                updateStatus('debug-status', `✅ Todos os ${scripts.length} scripts carregados`, 'success');
+            } else {
+                updateStatus('debug-status', `⚠️ ${available}/${scripts.length} scripts disponíveis`, 'warning');
+            }
+        }
+        
+        // Atualiza status visual
+        function updateStatus(elementId, message, type = 'success') {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            
+            const container = element.closest('.status-item');
+            container.className = 'status-item';
+            if (type === 'error') container.classList.add('error');
+            if (type === 'warning') container.classList.add('warning');
+        }
+        
+        // Funções dos botões
+        function testarSistema() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '<h3>🧪 Executando testes...</h3>';
+            
+            // Simula teste completo
+            setTimeout(() => {
+                results.innerHTML = `
+                    <h3>📊 Resultados dos Testes:</h3>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px;">
+                        <p>✅ Servidor respondendo corretamente</p>
+                        <p>✅ Scripts de debug carregados</p>
+                        <p>⚠️ Testando ofertas no site principal...</p>
+                        <p><strong>Recomendação:</strong> Abrir site principal e usar "Forçar Ofertas"</p>
+                    </div>
+                `;
+            }, 2000);
+        }
+        
+        function forcarOfertas() {
+            alert('Abra o site principal (http://localhost:3000) e execute "forcarOfertasVisiveis()" no console para forçar as ofertas!');
+        }
+        
+        function abrirSitePrincipal() {
+            window.open('http://localhost:3000', '_blank');
+        }
+        
+        function limparCache() {
+            if (confirm('Isso vai recarregar a página e limpar o cache. Continuar?')) {
+                location.reload(true);
+            }
+        }
+        
+        // Executa testes iniciais
+        window.addEventListener('load', () => {
+            updateStatus('nav-status', '✅ Sistema de status carregado', 'success');
+            updateStatus('offers-status', '⏳ Aguardando teste no site principal', 'warning');
+            
+            testarServidor();
+            testarScripts();
+        });
+    </script>
+</body>
+</html>

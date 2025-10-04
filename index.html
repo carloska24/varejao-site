@@ -34,8 +34,9 @@
                 <img src="img/logo.svg" alt="" class="logo-icon">
             </div>
             <div class="header-icons">
-                <i class="fa-solid fa-search" id="search-btn"></i>
-                <div class="cart-icon">
+                <i class="fa-solid fa-bell" id="notifications-btn" title="Notificações"></i>
+                <i class="fa-solid fa-search" id="search-btn" title="Buscar"></i>
+                <div class="cart-icon" title="Carrinho">
                     <i class="fa-solid fa-shopping-cart"></i>
                     <span class="cart-notification">3</span>
                 </div>
@@ -50,49 +51,36 @@
             </section>
 
             <section class="categories">
-                <div class="categories-header">
-                    <h3>Explore por Categoria</h3>
-                    <div class="search-filter">
-                        <input type="text" id="product-search" placeholder="Buscar produtos...">
-                        <i class="fa-solid fa-search"></i>
-                    </div>
-                </div>
                 <div class="categories-grid">
                     <div class="category-item active-category" data-filter="all">
                         <div class="icon-bg"><i class="fa-solid fa-store"></i></div>
                         <span>Todos</span>
-                        <small class="category-count">10</small>
                     </div>
                     <div class="category-item" data-filter="frutas">
                         <div class="icon-bg"><i class="fa-solid fa-apple-whole"></i></div>
                         <span>Frutas</span>
-                        <small class="category-count">4</small>
                     </div>
                     <div class="category-item" data-filter="verduras">
                         <div class="icon-bg"><i class="fa-solid fa-leaf"></i></div>
                         <span>Verduras</span>
-                        <small class="category-count">2</small>
                     </div>
                     <div class="category-item" data-filter="legumes">
                         <div class="icon-bg"><i class="fa-solid fa-carrot"></i></div>
                         <span>Legumes</span>
-                        <small class="category-count">2</small>
                     </div>
                     <div class="category-item" data-filter="organicos">
                          <div class="icon-bg"><i class="fa-solid fa-seedling"></i></div>
                         <span>Orgânicos</span>
-                        <small class="category-count">1</small>
                     </div>
-                    <div class="category-item" data-filter="temperos">
-                        <div class="icon-bg"><i class="fa-solid fa-pepper-hot"></i></div>
-                        <span>Temperos</span>
-                        <small class="category-count">1</small>
+                    <div class="category-item" data-filter="promocoes">
+                        <div class="icon-bg"><i class="fa-solid fa-tag"></i></div>
+                        <span>Promoções</span>
                     </div>
                 </div>
             </section>
 
             <!-- SEÇÃO DE OFERTAS RELÂMPAGO -->
-            <section class="flash-deals" id="ofertas-especiais">
+            <section class="flash-deals" id="ofertas-especiais" style="display: block;">
                 <div class="deals-header">
                     <h2><i class="fa-solid fa-bolt"></i> OFERTAS RELÂMPAGO</h2>
                     <div class="countdown-timer">
@@ -105,10 +93,48 @@
                     </div>
                 </div>
                 <div class="flash-deals-grid">
-                    <!-- Produtos em oferta serão inseridos aqui via JS -->
+                    <!-- OFERTAS GARANTIDAS VIA HTML -->
+                    <div class="flash-deal-item">
+                        <div class="deal-badge">27% OFF</div>
+                        <img src="img/products/banana-nanica.png" alt="Banana Nanica">
+                        <h3>🍌 Banana Nanica Premium</h3>
+                        <div class="price-section">
+                            <span class="current-price">R$ 3,99</span>
+                            <span class="original-price">R$ 5,50</span>
+                        </div>
+                        <div class="deal-timer">⏰ Termina em: 2h 30m</div>
+                        <div class="stock-info">📦 150 unidades disponíveis</div>
+                        <button class="btn-comprar">🛒 COMPRAR AGORA</button>
+                    </div>
+                    
+                    <div class="flash-deal-item">
+                        <div class="deal-badge">31% OFF</div>
+                        <img src="img/products/morango.png" alt="Morango">
+                        <h3>🍓 Morango Premium</h3>
+                        <div class="price-section">
+                            <span class="current-price">R$ 8,90</span>
+                            <span class="original-price">R$ 12,90</span>
+                        </div>
+                        <div class="deal-timer">⏰ Termina em: 1h 45m</div>
+                        <div class="stock-info">📦 75 unidades disponíveis</div>
+                        <button class="btn-comprar">🛒 COMPRAR AGORA</button>
+                    </div>
+                    
+                    <div class="flash-deal-item">
+                        <div class="deal-badge">35% OFF</div>
+                        <img src="img/products/maca-gala.png" alt="Maçã Gala">
+                        <h3>🍎 Maçã Gala Extra</h3>
+                        <div class="price-section">
+                            <span class="current-price">R$ 4,50</span>
+                            <span class="original-price">R$ 6,90</span>
+                        </div>
+                        <div class="deal-timer">⏰ Termina em: 3h 15m</div>
+                        <div class="stock-info">📦 200 unidades disponíveis</div>
+                        <button class="btn-comprar">🛒 COMPRAR AGORA</button>
+                    </div>
                 </div>
                 <div class="deals-cta">
-                    <button class="btn-ver-todas-ofertas">Ver Todas as Ofertas <i class="fa-solid fa-arrow-right"></i></button>
+                    <button class="btn-ver-todas-ofertas" onclick="mostrarTodasOfertas()">Ver Todas as Ofertas <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </section>
 
@@ -239,6 +265,165 @@
             </div>
         </div>
 
+        <!-- Painel de Controle de Marketing -->
+        <div class="marketing-panel" id="marketing-panel">
+            <div class="panel-header">
+                <h2><i class="fa-solid fa-chart-line"></i> Painel de Marketing</h2>
+                <i class="fa-solid fa-times" id="close-marketing-btn"></i>
+            </div>
+            
+            <div class="marketing-content">
+                <div class="marketing-tabs">
+                    <button class="tab-btn active" data-tab="promotions">Promoções</button>
+                    <button class="tab-btn" data-tab="analytics">Analytics</button>
+                    <button class="tab-btn" data-tab="notifications">Notificações</button>
+                </div>
+
+                <!-- Aba de Promoções -->
+                <div class="tab-content active" id="promotions-tab">
+                    <div class="promo-creator">
+                        <h3>Criar Nova Promoção Relâmpago</h3>
+                        <form id="promo-form">
+                            <div class="form-group">
+                                <label>Produto:</label>
+                                <select id="promo-product" required>
+                                    <option value="">Selecione um produto</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Desconto (%):</label>
+                                    <input type="number" id="promo-discount" min="5" max="70" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Duração (horas):</label>
+                                    <input type="number" id="promo-duration" min="1" max="48" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Promoção:</label>
+                                <select id="promo-type">
+                                    <option value="flash">Flash Sale</option>
+                                    <option value="limited">Quantidade Limitada</option>
+                                    <option value="bundle">Combo</option>
+                                    <option value="loyalty">Fidelidade</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="stock-limit-group" style="display: none;">
+                                <label>Estoque Limitado (unidades):</label>
+                                <input type="number" id="promo-stock" min="1">
+                            </div>
+                            <button type="submit" class="btn-create-promo">
+                                <i class="fa-solid fa-rocket"></i> Lançar Promoção
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="active-promos">
+                        <h3>Promoções Ativas</h3>
+                        <div class="promos-list" id="active-promos-list">
+                            <!-- Promoções ativas serão listadas aqui -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba de Analytics -->
+                <div class="tab-content" id="analytics-tab">
+                    <div class="analytics-dashboard">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <i class="fa-solid fa-eye"></i>
+                                <div class="metric-value" id="total-views">0</div>
+                                <div class="metric-label">Visualizações</div>
+                            </div>
+                            <div class="metric-card">
+                                <i class="fa-solid fa-shopping-cart"></i>
+                                <div class="metric-value" id="total-conversions">0</div>
+                                <div class="metric-label">Conversões</div>
+                            </div>
+                            <div class="metric-card">
+                                <i class="fa-solid fa-percentage"></i>
+                                <div class="metric-value" id="conversion-rate">0%</div>
+                                <div class="metric-label">Taxa de Conversão</div>
+                            </div>
+                            <div class="metric-card">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                                <div class="metric-value" id="total-revenue">R$ 0</div>
+                                <div class="metric-label">Receita Gerada</div>
+                            </div>
+                        </div>
+                        <div class="performance-chart">
+                            <h4>Performance das Últimas Promoções</h4>
+                            <canvas id="performance-chart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba de Notificações -->
+                <div class="tab-content" id="notifications-tab">
+                    <div class="notification-settings">
+                        <h3>Configurar Notificações Push</h3>
+                        <div class="notification-form">
+                            <div class="form-group">
+                                <label>Título da Notificação:</label>
+                                <input type="text" id="notif-title" placeholder="🔥 OFERTA RELÂMPAGO!">
+                            </div>
+                            <div class="form-group">
+                                <label>Mensagem:</label>
+                                <textarea id="notif-message" placeholder="Não perca! Desconto especial por tempo limitado!"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Audiência:</label>
+                                <select id="notif-audience">
+                                    <option value="all">Todos os usuários</option>
+                                    <option value="frequent">Compradores frequentes</option>
+                                    <option value="new">Novos usuários</option>
+                                    <option value="abandoned">Carrinho abandonado</option>
+                                </select>
+                            </div>
+                            <button class="btn-send-notification">
+                                <i class="fa-solid fa-bell"></i> Enviar Notificação
+                            </button>
+                        </div>
+                        
+                        <div class="notification-stats">
+                            <h4>Estatísticas de Notificações</h4>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-value" id="notif-sent">0</span>
+                                    <span class="stat-label">Enviadas</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="notif-opened">0</span>
+                                    <span class="stat-label">Abertas</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="notif-clicked">0</span>
+                                    <span class="stat-label">Clicadas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast de Notificação -->
+        <div class="toast-notification" id="toast-notification">
+            <div class="toast-content">
+                <i class="toast-icon"></i>
+                <div class="toast-message"></div>
+                <button class="toast-close">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Floating Action Button para Marketing -->
+        <div class="fab-marketing" id="fab-marketing" title="Painel de Marketing">
+            <i class="fa-solid fa-chart-line"></i>
+        </div>
+
         <nav class="bottom-nav">
             <a href="#" class="nav-item active">
                 <i class="fa-solid fa-home"></i>
@@ -264,5 +449,14 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="test-navigation.js"></script>
+    <script src="debug-navigation.js"></script>
+    <script src="visual-test.js"></script>
+    <script src="deep-debug.js"></script>
+    <script src="debug-ofertas.js"></script>
+    <script src="debug-ofertas-premium.js"></script>
+    <script src="teste-cliques.js"></script>
+    <script src="teste-navegacao-bug.js"></script>
+    <script src="solucao-direta.js"></script>
 </body>
 </html>

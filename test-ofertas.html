@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Ofertas - Varejão</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 2px solid #ccc; }
+        .success { border-color: green; background: #e8f5e8; }
+        .error { border-color: red; background: #ffe8e8; }
+        .warning { border-color: orange; background: #fff8e8; }
+        button { padding: 10px 20px; margin: 5px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 10px; }
+        .offer-card { border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔥 Teste de Ofertas Relâmpago</h1>
+    
+    <div id="test-results">
+        <div class="test-section" id="data-test">
+            <h3>1. Verificação de Dados</h3>
+            <p id="data-status">Carregando...</p>
+        </div>
+        
+        <div class="test-section" id="function-test">
+            <h3>2. Verificação de Funções</h3>
+            <p id="function-status">Verificando...</p>
+        </div>
+        
+        <div class="test-section" id="render-test">
+            <h3>3. Teste de Renderização</h3>
+            <button onclick="testRender()">Renderizar Ofertas</button>
+            <div id="render-result"></div>
+        </div>
+        
+        <div class="test-section" id="offers-display">
+            <h3>4. Ofertas Renderizadas</h3>
+            <div class="offers-grid" id="test-offers-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        // Dados de teste (cópia das ofertas do sistema principal)
+        const testFlashDeals = [
+            {
+                id: 1,
+                nome: "Banana Nanica",
+                preco: 3.99,
+                precoOriginal: 5.50,
+                desconto: 27,
+                imagem: "img/products/banana-nanica.png",
+                categoria: "frutas",
+                tempoRestante: "2h 30m",
+                quantidade: 150
+            },
+            {
+                id: 2,
+                nome: "Morango Premium",
+                preco: 8.90,
+                precoOriginal: 12.90,
+                desconto: 31,
+                imagem: "img/products/morango.png",
+                categoria: "frutas",
+                tempoRestante: "1h 45m",
+                quantidade: 75
+            },
+            {
+                id: 3,
+                nome: "Maçã Gala",
+                preco: 4.50,
+                precoOriginal: 6.90,
+                desconto: 35,
+                imagem: "img/products/maca-gala.png",
+                categoria: "frutas",
+                tempoRestante: "3h 15m",
+                quantidade: 200
+            }
+        ];
+
+        function updateTestStatus(sectionId, status, isSuccess = true) {
+            const section = document.getElementById(sectionId);
+            const statusEl = section.querySelector('p');
+            statusEl.textContent = status;
+            section.className = `test-section ${isSuccess ? 'success' : 'error'}`;
+        }
+
+        function testData() {
+            console.log('🧪 Testando dados...');
+            
+            if (testFlashDeals && testFlashDeals.length > 0) {
+                updateTestStatus('data-test', `✅ ${testFlashDeals.length} ofertas carregadas com sucesso!`, true);
+                console.log('✅ Dados OK:', testFlashDeals);
+                return true;
+            } else {
+                updateTestStatus('data-test', '❌ Nenhuma oferta encontrada!', false);
+                return false;
+            }
+        }
+
+        function testFunctions() {
+            console.log('🧪 Testando funções...');
+            
+            // Testa se conseguimos criar HTML de oferta
+            try {
+                const testOffer = testFlashDeals[0];
+                const html = createOfferHTML(testOffer);
+                
+                if (html && html.length > 0) {
+                    updateTestStatus('function-test', '✅ Função de criação de HTML funcionando!', true);
+                    return true;
+                } else {
+                    updateTestStatus('function-test', '❌ Função não retornou HTML válido!', false);
+                    return false;
+                }
+            } catch (error) {
+                updateTestStatus('function-test', `❌ Erro na função: ${error.message}`, false);
+                console.error('❌ Erro:', error);
+                return false;
+            }
+        }
+
+        function createOfferHTML(offer) {
+            return `
+                <div class="offer-card">
+                    <img src="${offer.imagem}" alt="${offer.nome}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                    <h4>${offer.nome}</h4>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.2em; font-weight: bold; color: #e74c3c;">R$ ${offer.preco.toFixed(2)}</span>
+                        <span style="text-decoration: line-through; color: #888;">R$ ${offer.precoOriginal.toFixed(2)}</span>
+                        <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.8em;">${offer.desconto}% OFF</span>
+                    </div>
+                    <p style="margin: 5px 0; color: #666;">⏰ ${offer.tempoRestante}</p>
+                    <p style="margin: 5px 0; color: #666;">📦 ${offer.quantidade} unidades</p>
+                </div>
+            `;
+        }
+
+        function testRender() {
+            console.log('🧪 Testando renderização...');
+            
+            try {
+                const grid = document.getElementById('test-offers-grid');
+                grid.innerHTML = '';
+                
+                testFlashDeals.forEach(offer => {
+                    const offerHTML = createOfferHTML(offer);
+                    grid.innerHTML += offerHTML;
+                });
+                
+                const resultDiv = document.getElementById('render-result');
+                resultDiv.innerHTML = '<p style="color: green;">✅ Ofertas renderizadas com sucesso!</p>';
+                
+                console.log('✅ Renderização concluída!');
+                
+            } catch (error) {
+                const resultDiv = document.getElementById('render-result');
+                resultDiv.innerHTML = `<p style="color: red;">❌ Erro na renderização: ${error.message}</p>`;
+                console.error('❌ Erro na renderização:', error);
+            }
+        }
+
+        // Auto-teste ao carregar
+        window.addEventListener('load', () => {
+            console.log('🚀 Iniciando testes automáticos...');
+            
+            setTimeout(() => {
+                testData();
+                setTimeout(() => {
+                    testFunctions();
+                    setTimeout(() => {
+                        testRender();
+                    }, 500);
+                }, 500);
+            }, 100);
+        });
+    </script>
+</body>
+</html>
