@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Open Clean App (no-cache)",
+			"label": "Dev: start server",
 			"type": "shell",
 			"command": "powershell",
 			"args": [
@@ -10,11 +10,48 @@
 				"-ExecutionPolicy",
 				"Bypass",
 				"-Command",
-				"Start-Process http://localhost:3000/clean/?reset=1&v=$(Get-Date -UFormat %s)"
+				"$env:PORT=3000; $env:NODE_ENV=\"development\"; node server.js"
+			],
+			"isBackground": true,
+			"problemMatcher": [
+				{
+					"pattern": {
+						"regexp": ".*",
+						"file": 1,
+						"location": 2,
+						"message": 0
+					},
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "^$",
+						"endsPattern": "Servidor do Varejão rodando"
+					}
+				}
+			],
+			"group": "build"
+		},
+		{
+			"label": "Open Clean App (no-cache)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}/scripts/open-clean.ps1"
 			],
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "none"
+		},
+		{
+			"label": "Dev: start + open clean",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"Dev: start server",
+				"Open Clean App (no-cache)"
+			]
 		}
 	]
 }
