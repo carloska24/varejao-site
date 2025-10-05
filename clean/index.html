@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Varejão Limpo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css?v=3" />
+  <script>
+    // Garante que nenhum Service Worker/Caches antigos interfiram
+    (function(){
+      try{
+        if('serviceWorker' in navigator){
+          navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister()));
+        }
+        if(window.caches && caches.keys){
+          caches.keys().then(keys=>keys.forEach(k=>caches.delete(k)));
+        }
+      }catch(_){/* ignore */}
+    })();
+  </script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="logo"><i class="fa-solid fa-store"></i> Varejão</div>
+      <div class="actions">
+        <button id="btn-refresh" class="icon-btn" title="Atualizar versão"><i class="fa-solid fa-rotate-right"></i></button>
+        <button id="btn-notify" class="icon-btn" title="Notificações"><i class="fa-solid fa-bell"></i></button>
+        <button id="btn-cart" class="icon-btn cart" title="Carrinho">
+          <i class="fa-solid fa-shopping-cart"></i>
+          <span id="cart-count" class="badge" aria-label="Itens no carrinho">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="content">
+      <section id="hero" class="section hero">
+        <img src="../img/banner-varejao.png" alt="Banner Varejão" class="hero-img"/>
+      </section>
+
+      <section id="categorias" class="section categories">
+        <div class="grid cats-icons">
+          <button class="cat" data-filter="all" aria-label="Todos">
+            <div class="cat-icon"><i class="fa-solid fa-store fa-fw" aria-hidden="true"></i></div>
+          </button>
+          <button class="cat" data-filter="frutas" aria-label="Frutas">
+            <div class="cat-icon"><i class="fa-solid fa-apple-whole fa-fw" aria-hidden="true"></i></div>
+          </button>
+          <button class="cat" data-filter="verduras" aria-label="Verduras">
+            <div class="cat-icon"><i class="fa-solid fa-leaf fa-fw" aria-hidden="true"></i></div>
+          </button>
+          <button class="cat" data-filter="legumes" aria-label="Legumes">
+            <div class="cat-icon"><i class="fa-solid fa-carrot fa-fw" aria-hidden="true"></i></div>
+          </button>
+          <button class="cat" data-filter="organicos" aria-label="Orgânicos">
+            <div class="cat-icon"><i class="fa-solid fa-seedling fa-fw" aria-hidden="true"></i></div>
+          </button>
+          <button class="cat" data-filter="promocoes" aria-label="Promoções">
+            <div class="cat-icon"><i class="fa-solid fa-tag fa-fw" aria-hidden="true"></i></div>
+          </button>
+        </div>
+        <div class="grid cats-names" aria-hidden="false">
+          <button class="cat" data-filter="all"><div class="cat-label">Todos</div></button>
+          <button class="cat" data-filter="frutas"><div class="cat-label">Frutas</div></button>
+          <button class="cat" data-filter="verduras"><div class="cat-label">Verduras</div></button>
+          <button class="cat" data-filter="legumes"><div class="cat-label">Legumes</div></button>
+          <button class="cat" data-filter="organicos"><div class="cat-label">Orgânicos</div></button>
+          <button class="cat" data-filter="promocoes"><div class="cat-label">Promoções</div></button>
+        </div>
+      </section>
+
+      <section id="ofertas" class="section ofertas hidden">
+        <div class="ofertas-header">
+          <div class="title">
+            <span class="icon"><i class="fa-solid fa-bolt"></i></span>
+            <div class="text">
+              <h2>Ofertas Relâmpago</h2>
+              <p>Descontos reais por tempo limitado</p>
+            </div>
+          </div>
+          <div class="countdown">
+            <div class="cd-box"><span id="t-h">00</span><small>h</small></div>
+            <div class="cd-box"><span id="t-m">00</span><small>m</small></div>
+            <div class="cd-box"><span id="t-s">00</span><small>s</small></div>
+          </div>
+        </div>
+        <div id="ofertas-grid" class="ofertas-grid"></div>
+      </section>
+
+      <section id="produtos" class="section produtos">
+        <div id="produtos-grid" class="grid produtos-grid"></div>
+      </section>
+
+      <section id="receitas" class="section hidden">
+        <h2><i class="fa-solid fa-utensils"></i> Receitas</h2>
+        <div id="receitas-grid" class="grid receitas-grid"></div>
+      </section>
+
+      <section id="perfil" class="section hidden">
+        <h2><i class="fa-solid fa-user"></i> Perfil</h2>
+        <div class="perfil-card">Olá! Aqui vai o seu perfil.</div>
+      </section>
+    </main>
+
+    <!-- Modal de Produto -->
+    <div id="product-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close" aria-label="Fechar"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-body">
+          <div class="modal-image"><img id="modal-img" alt=""/></div>
+          <div class="modal-info">
+            <h3 id="modal-title"></h3>
+            <div class="modal-price"><span id="modal-price"></span></div>
+            <div class="qty-row">
+              <button class="qty-btn" id="qty-minus">-</button>
+              <span id="qty" class="qty">1</span>
+              <button class="qty-btn" id="qty-plus">+</button>
+            </div>
+            <button class="btn-primary" id="modal-add">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel do Carrinho -->
+    <aside id="cart-panel" class="cart-panel hidden" aria-labelledby="cart-title">
+      <div class="cart-header">
+        <h3 id="cart-title"><i class="fa-solid fa-shopping-cart"></i> Meu Carrinho</h3>
+        <button id="cart-close" class="icon-btn" aria-label="Fechar"><i class="fa-solid fa-times"></i></button>
+      </div>
+      <div id="cart-items" class="cart-items"></div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cart-total">R$ 0,00</strong>
+        </div>
+        <div class="cart-actions">
+          <button id="cart-clear" class="btn-secondary">Limpar</button>
+          <button id="cart-checkout" class="btn-primary">Finalizar</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-section="inicio"><i class="fa-solid fa-home"></i><span>Início</span></button>
+      <button class="nav-item" data-section="categorias"><i class="fa-solid fa-th-large"></i><span>Categorias</span></button>
+      <button class="nav-item" data-section="ofertas"><i class="fa-solid fa-star"></i><span>Ofertas</span></button>
+      <button class="nav-item" data-section="receitas"><i class="fa-solid fa-utensils"></i><span>Receitas</span></button>
+      <button class="nav-item" data-section="perfil"><i class="fa-solid fa-user"></i><span>Perfil</span></button>
+    </nav>
+  </div>
+
+  <script src="app.js?v=5" defer></script>
+</body>
+</html>
